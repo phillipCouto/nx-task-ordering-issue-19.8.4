@@ -23,7 +23,7 @@ pnpm nx migrate 19.8.4
 pnpm i --no-frozen-lockfile
 
 # Ensure a clean slate
-git clean -xdf
+git clean -xdf ./libs
 pnpm nx reset
 
 # Run audit target again with large degree of parallelism
@@ -37,11 +37,12 @@ _See tasks that depend on `libs/models:prebuild` executing ahead of it._
 Now we can confirm it is still a problem in 20.0.5:
 
 ```bash
-pnpm nx migrate 19.8.4
+pnpm nx migrate 20.0.5
 pnpm i --no-frozen-lockfile
+pnpm nx migrate --run-migrations
 
 # Ensure a clean slate
-git clean -xdf
+git clean -xdf ./libs
 pnpm nx reset
 
 # Run audit target again with large degree of parallelism
