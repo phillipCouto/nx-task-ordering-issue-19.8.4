@@ -4,7 +4,7 @@
     "appsDir": "apps",
     "libsDir": "libs"
   },
-  "targetDefaults":{
+  "targetDefaults": {
     "audit": {
       "dependsOn": ["prebuild", "^prebuild"]
     }
@@ -27,5 +27,6 @@
         }
       }
     }
-  ]
+  ],
+  "useLegacyCache": true
 }
