@@ -1,0 +1,44 @@
+{
+  "name": "libs/models",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/models",
+  "tags": [],
+  "targets": {
+    "migrate-db": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "parallel": false,
+        "commands": ["sleep 1s", "echo 'migrated' > migration.txt"]
+      }
+    },
+    "prebuild": {
+      "dependsOn": ["migrate-db"],
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "parallel": false,
+        "commands": [
+          "rm ./models.txt || true",
+          "sleep 10s",
+          "echo 'generated' > models.txt"
+        ]
+      },
+      "inputs": [
+        "{projectRoot}/**/*",
+        "{projectRoot}/*",
+        "!{projectRoot}/*.txt"
+      ],
+      "outputs": ["{projectRoot}/*.txt"],
+      "cache": true
+    },
+    "audit": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "commands": ["cat ./models.txt"]
+      }
+    }
+  }
+}
